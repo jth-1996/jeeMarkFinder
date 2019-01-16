@@ -45,6 +45,10 @@
 
     </table>
       </form>
+      <table id="errorTable" style="align="flex-end"">
+      <tbody>
+      </tbody>
+    </table>
     <table id="marksTable" style="align="flex-end"">
       <th id="marksHeader"></th>
       <tbody>
@@ -53,7 +57,6 @@
       <div class="fb-comments" data-href="https://jth-1996.github.io/jeeMarkFinder/" data-width="150" data-numposts="5"></div>
 
     <script type="text/javascript">
-      //Answers
       var Physics ={
         right:0,
         wrong:0,
@@ -86,6 +89,7 @@
         responses=document.getElementById("responses").value + '\n';
         var rowIndex=0;
         var subRowIndex=0;
+        var errorIndex=0;
         //display student details
         var table = document.getElementById("marksTable");
         //Application No
@@ -150,9 +154,7 @@
             correctOption:0,
             marks:-1,
           };
-          Qid=responses.indexOf("Question ID",Qid)+'Question ID :	'.length;
-          Question.ID=responses.substr(Qid,responses.indexOf("\n",Qid)-Qid);
-          Question.correctOptionID=answers[answers.indexOf(Question.ID)+1];
+          
           Oid=responses.indexOf("Option",Oid)+'Option 1 ID :	'.length;
           for(j=0;j<4;j++)
           {
@@ -161,7 +163,6 @@
           }
           Oid=responses.indexOf("Option",Oid)+'Option 1 ID :	'.length;
           Question.correctOption=Question.Options.indexOf(Question.correctOptionID)
-          //Console.log(Options);
           statusID=responses.indexOf("Status :	",statusID)+'Status :	'.length;
           answerID=responses.indexOf("Chosen Option :	",answerID)+'Chosen Option :	'.length;
           Question.chosedOption=responses.substr(answerID,responses.indexOf("\n",answerID)-answerID)
@@ -172,6 +173,21 @@
           }
           else {
             Question.chosedOptionId=Question.Options[Question.chosedOption]
+          }
+          Qid=responses.indexOf("Question ID",Qid)+'Question ID :	'.length;
+          Question.ID=responses.substr(Qid,responses.indexOf("\n",Qid)-Qid);
+          if (answers.indexOf(Question.ID) == -1)
+          {
+              Question.chosedOption=null;
+              Question.chosedOptionId=null;
+              Question.correctOptionID=0;
+              var table1 = document.getElementById("errorTable")
+              var row = table1.insertRow(errorIndex++);
+              row.insertCell(0).innerHTML="Physics Q."+(i+1)+'. is not available in our Database,Sorry For the inconvinence';            
+          }
+          else
+          {
+            Question.correctOptionID=answers[answers.indexOf(Question.ID)+1]
           }
 
           var table = document.getElementById("marksTable")
@@ -254,9 +270,7 @@
             correctOption:0,
             marks:-1,
           };
-          Qid=responses.indexOf("Question ID",Qid)+'Question ID :	'.length;
-          Question.ID=responses.substr(Qid,responses.indexOf("\n",Qid)-Qid);
-          Question.correctOptionID=answers[answers.indexOf(Question.ID)+1];
+          
           Oid=responses.indexOf("Option",Oid)+'Option 1 ID :	'.length;
           for(j=0;j<4;j++)
           {
@@ -276,6 +290,22 @@
           }
           else {
             Question.chosedOptionId=Question.Options[Question.chosedOption]
+          }
+          
+          Qid=responses.indexOf("Question ID",Qid)+'Question ID :	'.length;
+          Question.ID=responses.substr(Qid,responses.indexOf("\n",Qid)-Qid);
+          if (answers.indexOf(Question.ID) == -1)
+          {
+              Question.chosedOption=null;
+              Question.chosedOptionId=null;
+              Question.correctOptionID=0;
+              var table1 = document.getElementById("errorTable")
+              var row = table1.insertRow(errorIndex++);
+              row.insertCell(0).innerHTML="Chemistry Q."+(i+1)+'. is not available in our Database,Sorry For the inconvinence';            
+          }
+          else
+          {
+            Question.correctOptionID=answers[answers.indexOf(Question.ID)+1]
           }
 
           var table = document.getElementById("marksTable")
@@ -358,9 +388,8 @@ for(var i=0;i<30;i++)
     correctOption:0,
     marks:5,
   };
-  Qid=responses.indexOf("Question ID",Qid)+'Question ID :	'.length;
-  Question.ID=responses.substr(Qid,responses.indexOf("\n",Qid)-Qid);
-  Question.correctOptionID=answers[answers.indexOf(Question.ID)+1];
+  
+  
   Oid=responses.indexOf("Option",Oid)+'Option 1 ID :	'.length;
   for(j=0;j<4;j++)
   {
@@ -381,7 +410,22 @@ for(var i=0;i<30;i++)
   else {
     Question.chosedOptionId=Question.Options[Question.chosedOption]
   }
-
+  Qid=responses.indexOf("Question ID",Qid)+'Question ID :	'.length;
+  Question.ID=responses.substr(Qid,responses.indexOf("\n",Qid)-Qid);
+  if (answers.indexOf(Question.ID) == -1)
+          {
+              Question.chosedOption=null;
+              Question.chosedOptionId=null;
+              Question.correctOptionID=0;
+              var table1 = document.getElementById("errorTable")
+              var row = table1.insertRow(errorIndex++);
+              row.insertCell(0).innerHTML="Mathematics Q."+(i+1)+'. is not available in our Database,Sorry For the inconvinence';            
+          }
+          else
+          {
+            Question.correctOptionID=answers[answers.indexOf(Question.ID)+1]
+          }
+  
   var table = document.getElementById("marksTable")
   var row = table.insertRow(rowIndex++);
   //Question No
@@ -435,6 +479,7 @@ Total.marks=Physics.marks+Chemistry.marks+Mathematics.marks;
 var table = document.getElementById("marksTable")
 var row = table.insertRow(subRowIndex++);
 rowIndex++;
+row.style.backgroundColor = "#39ac73";
 row.insertCell(0).innerHTML="Total";
 row.insertCell(1).innerHTML=Total.right;
 row.insertCell(2).innerHTML=Total.wrong;
