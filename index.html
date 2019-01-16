@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>JEE Mark Analyser</title>
+  </head>
+  <body>
+    <form>
+    <table>
+    <tr>
+      <td><strong>JEE 2019 Marks Finder</strong></td>
+    </tr>
+    <tr>
+      <td>This page will help you find your JEE 2019 marks.<BR>All you have to do is copy your response from JEE website and paste it the text box bellow. <BR>This Website will calculate your makrs for you.</td>
+    </tr>
+    <tr>
+      <td><strong>Paste Your Response Here</strong></td>
+    </tr>
+    <tr>
+      <td>
+        <textarea id="responses" style="width:500px; height:100px"></textarea>
+      </td>
+    </tr>
+    <tr>
+      <td><input type="button" value="Find Marks" onclick="JavaScript:findMarks()"></td>
+    </tr>
+
+    </table>
+      </form>
+    <table id="marksTable" style="align="flex-end"">
+      <th id="marksHeader"></th>
+      <tbody>
+      </tbody>
+    </table>
+
+    <script type="text/javascript">
+      //Answers
+      var Physics ={
+        right:0,
+        wrong:0,
+        unattended:0,
+        marks:0,
+      };
+      var Chemistry ={
+        right:0,
+        wrong:0,
+        unattended:0,
+        marks:0,
+      };
+      var Mathematics ={
+        right:0,
+        wrong:0,
+        unattended:0,
+        marks:0,
+      };
+      var Total ={
+        right:0,
+        wrong:0,
+        unattended:0,
+        marks:0,
+      };
+      answers=['4165299506','41652937482','4165299507','41652937486','4165299508','41652937491','4165299509','41652937495','4165299510','41652937498','4165299511','41652937504','4165299512','41652937508','4165299513','41652937513','4165299514','41652937516','4165299515','41652937518','4165299516','41652937525','4165299517','41652937528','4165299518','41652937531','4165299519','41652937536','4165299520','41652937538','4165299521','41652937543','4165299522','41652937546','4165299523','41652937550','4165299524','41652937557','4165299525','41652937558','4165299526','41652937564','4165299527','41652937566','4165299528','41652937572','4165299529','41652937577','4165299530','41652937578','4165299531','41652937584','4165299532','41652937586','4165299533','41652937593','4165299534','41652937594','4165299535','41652937599','4165299536','41652937602','4165299537','41652937607','4165299538','41652937613','4165299539','41652937616','4165299540','41652937619','4165299541','41652937625','4165299542','41652937628','4165299543','41652937632','4165299544','41652937637','4165299545','41652937640','4165299546','41652937645','4165299547','41652937649','4165299548','41652937650','4165299549','41652937656','4165299550','41652937658','4165299551','41652937663','4165299552','41652937668','4165299553','41652937672','4165299554','41652937676','4165299555','41652937678','4165299556','41652937682','4165299557','41652937687','4165299558','41652937690','4165299559','41652937694','4165299560','41652937699','4165299561','41652937703','4165299562','41652937708','4165299563','41652937711','4165299564','41652937715','4165299565','41652937721','4165299566','41652937723','4165299567','41652937726','4165299568','41652937733','4165299569','41652937737','4165299570','41652937741','4165299571','41652937745','4165299572','41652937748','4165299573','41652937753','4165299574','41652937756','4165299575','41652937760','4165299576','41652937765','4165299577','41652937766','4165299578','41652937770','4165299579','41652937777','4165299580','41652937778','4165299581','41652937782','4165299582','41652937786','4165299583','41652937791','4165299584','41652937797','4165299585','41652937800','4165299586','41652937804','4165299587','41652937809','4165299588','41652937810','4165299589','41652937817','4165299590','41652937818','4165299591','41652937824','4165299592','41652937826','4165299593','41652937832','4165299594','41652937835','4165299595','41652937841']
+      function findMarks()
+      {
+
+        //copy text content to variable.
+        responses=document.getElementById("responses").value + '\n';
+        var rowIndex=0;
+        var subRowIndex=0;
+        //display student details
+        var table = document.getElementById("marksTable");
+        //Application No
+        var appID = table.insertRow(rowIndex++);
+        appID.style.backgroundColor = "#39ac73";
+        appID.insertCell(0).innerHTML="Application No"
+        appID.insertCell(1).innerHTML=responses.substr(35,12);
+        //Candidate Name
+        var appID = table.insertRow(rowIndex++);
+        appID.style.backgroundColor = "#39ac73";
+        appID.insertCell(0).innerHTML="Candidate Name"
+        appID.insertCell(1).innerHTML=responses.substr(63,responses.indexOf("\n",63)-63);
+        //Roll No
+        var appID = table.insertRow(rowIndex++);
+        appID.style.backgroundColor = "#39ac73";
+        appID.insertCell(0).innerHTML="Roll No"
+        appID.insertCell(1).innerHTML=responses.substr(81,responses.indexOf("\n",81)-81);
+
+        var row = table.insertRow(rowIndex++);
+        subRowIndex=rowIndex;
+        row.style.backgroundColor = "#cc9966";
+        row.insertCell(0).innerHTML="Subject";
+        row.insertCell(1).innerHTML="Right";
+        row.insertCell(2).innerHTML="Wrong";
+        row.insertCell(3).innerHTML="Unattended";
+        row.insertCell(4).innerHTML="Marks";
+
+
+        //Marks Table Creation : Physics
+        console.log("Physics")
+        var table = document.getElementById("marksTable");
+
+        var appID = table.insertRow(rowIndex++);
+        appID.style.backgroundColor = "#ff1a75";
+        appID.insertCell(0).innerHTML="Section"
+        appID.insertCell(1).innerHTML="Physics";
+
+        //Heading Row
+        var tableHeader = table.insertRow(rowIndex++);
+        tableHeader.style.backgroundColor = "#003cb3";
+        tableHeader.insertCell(0).innerHTML="Question No";
+        tableHeader.insertCell(1).innerHTML="Question ID";
+        tableHeader.insertCell(2).innerHTML="Chosen Option";
+        tableHeader.insertCell(3).innerHTML="Chosen Option ID";
+        tableHeader.insertCell(4).innerHTML="Correct Option No";
+        tableHeader.insertCell(5).innerHTML="Correct Option ID";
+        tableHeader.insertCell(6).innerHTML="Answered";
+        //tableHeader.insertCell(7).innerHTML="Marks";
+        var sectionID=responses.indexOf("Physics");
+        var Qid =sectionID;
+        var Oid =sectionID;
+        var statusID=sectionID;
+        var answerID=sectionID;
+        for(var i=0;i<30;i++)
+        {
+          var Question = {
+            ID : 0,
+            Options:[0],
+            chosedOption:0,
+            chosenOptionID:0,
+            correctOptionID:0,
+            correctOption:0,
+            marks:-1,
+          };
+          Qid=responses.indexOf("Question ID",Qid)+'Question ID :	'.length;
+          Question.ID=responses.substr(Qid,responses.indexOf("\n",Qid)-Qid);
+          Question.correctOptionID=answers[answers.indexOf(Question.ID)+1];
+          Oid=responses.indexOf("Option",Oid)+'Option 1 ID :	'.length;
+          for(j=0;j<4;j++)
+          {
+            Oid=responses.indexOf("Option",Oid)+'Option 1 ID :	'.length;
+            Question.Options.push(responses.substr(Oid,responses.indexOf("\n",Oid)-Oid))
+          }
+          Oid=responses.indexOf("Option",Oid)+'Option 1 ID :	'.length;
+          Question.correctOption=Question.Options.indexOf(Question.correctOptionID)
+          //Console.log(Options);
+          statusID=responses.indexOf("Status :	",statusID)+'Status :	'.length;
+          answerID=responses.indexOf("Chosen Option :	",answerID)+'Chosen Option :	'.length;
+          Question.chosedOption=responses.substr(answerID,responses.indexOf("\n",answerID)-answerID)
+          if (Question.chosedOption == '--')
+          {
+              Question.chosedOption=null;
+              Question.chosedOptionId=null;
+          }
+          else {
+            Question.chosedOptionId=Question.Options[Question.chosedOption]
+          }
+
+          var table = document.getElementById("marksTable")
+          var row = table.insertRow(rowIndex++);
+          //Question No
+          row.insertCell(0).innerHTML=i+1+'.';
+          //Question ID
+          row.insertCell(1).innerHTML=Question.ID;
+          //Chosen Option
+          row.insertCell(2).innerHTML=Question.chosedOption
+          //Chosen Option ID
+          row.insertCell(3).innerHTML=Question.chosedOptionId
+          //Correct Option No
+          row.insertCell(4).innerHTML=Question.correctOption
+          //Correct Option ID
+          row.insertCell(5).innerHTML=Question.correctOptionID
+          //Answered
+          var result = row.insertCell(6);
+          if (Question.correctOptionID==Question.chosedOptionId)
+          {
+            Physics.right++;
+            Physics.marks+=4;
+            Question.marks=4;
+            result.innerHTML='Correct'.fontcolor("green")
+          }
+          else if (Question.chosedOptionId==null)
+          {
+            Physics.unattended++;
+            Question.marks=0;
+          }
+          else if (Question.correctOptionID != Question.chosedOptionId)
+          {
+            Physics.wrong++;
+            Physics.marks-=1;
+            Question.marks=-1;
+            result.innerHTML='Wrong'.fontcolor("red")
+          }
+        }
+        var table = document.getElementById("marksTable")
+        var row = table.insertRow(subRowIndex++);
+        rowIndex++;
+        row.insertCell(0).innerHTML="Physics";
+        row.insertCell(1).innerHTML=Physics.right;
+        row.insertCell(2).innerHTML=Physics.wrong;
+        row.insertCell(3).innerHTML=Physics.unattended;
+        row.insertCell(4).innerHTML=Physics.marks;
+//-------------physics over------------------------------------------------------------------------------
+        //Marks Table Creation : Chemistry
+        console.log("Chemistry")
+        var table = document.getElementById("marksTable");
+
+        var appID = table.insertRow(rowIndex++);
+        appID.style.backgroundColor = "#ff1a75";
+        appID.insertCell(0).innerHTML="Section"
+        appID.insertCell(1).innerHTML="Chemistry";
+
+        //Heading Row
+        var tableHeader = table.insertRow(rowIndex++);
+        tableHeader.style.backgroundColor = "#003cb3";
+        tableHeader.insertCell(0).innerHTML="Question No";
+        tableHeader.insertCell(1).innerHTML="Question ID";
+        tableHeader.insertCell(2).innerHTML="Chosen Option";
+        tableHeader.insertCell(3).innerHTML="Chosen Option ID";
+        tableHeader.insertCell(4).innerHTML="Correct Option No";
+        tableHeader.insertCell(5).innerHTML="Correct Option ID";
+        tableHeader.insertCell(6).innerHTML="Result";
+        var sectionID=responses.indexOf("Chemistry");
+        var Qid =sectionID;
+        var Oid =sectionID;
+        var statusID=sectionID;
+        var answerID=sectionID;
+        for(var i=0;i<30;i++)
+        {
+          var Question = {
+            ID : 0,
+            Options:[0],
+            chosedOption:0,
+            chosenOptionID:0,
+            correctOptionID:0,
+            correctOption:0,
+            marks:-1,
+          };
+          Qid=responses.indexOf("Question ID",Qid)+'Question ID :	'.length;
+          Question.ID=responses.substr(Qid,responses.indexOf("\n",Qid)-Qid);
+          Question.correctOptionID=answers[answers.indexOf(Question.ID)+1];
+          Oid=responses.indexOf("Option",Oid)+'Option 1 ID :	'.length;
+          for(j=0;j<4;j++)
+          {
+            Oid=responses.indexOf("Option",Oid)+'Option 1 ID :	'.length;
+            Question.Options.push(responses.substr(Oid,responses.indexOf("\n",Oid)-Oid))
+          }
+          Oid=responses.indexOf("Option",Oid)+'Option 1 ID :	'.length;
+          Question.correctOption=Question.Options.indexOf(Question.correctOptionID)
+          //Console.log(Options);
+          statusID=responses.indexOf("Status :	",statusID)+'Status :	'.length;
+          answerID=responses.indexOf("Chosen Option :	",answerID)+'Chosen Option :	'.length;
+          Question.chosedOption=responses.substr(answerID,responses.indexOf("\n",answerID)-answerID)
+          if (Question.chosedOption == '--')
+          {
+              Question.chosedOption=null;
+              Question.chosedOptionId=null;
+          }
+          else {
+            Question.chosedOptionId=Question.Options[Question.chosedOption]
+          }
+
+          var table = document.getElementById("marksTable")
+          var row = table.insertRow(rowIndex++);
+          //Question No
+          row.insertCell(0).innerHTML=i+1+'.';
+          //Question ID
+          row.insertCell(1).innerHTML=Question.ID;
+          //Chosen Option
+          row.insertCell(2).innerHTML=Question.chosedOption
+          //Chosen Option ID
+          row.insertCell(3).innerHTML=Question.chosedOptionId
+          //Correct Option No
+          row.insertCell(4).innerHTML=Question.correctOption
+          //Correct Option ID
+          row.insertCell(5).innerHTML=Question.correctOptionID
+          //Answered
+          var result = row.insertCell(6)
+          if (Question.correctOptionID==Question.chosedOptionId)
+          {
+            Chemistry.right++;
+            Chemistry.marks+=4;
+            Question.marks=4;
+            result.innerHTML='Correct'.fontcolor("green")
+          }
+          else if (Question.chosedOptionId==null)
+          {
+            Chemistry.unattended++;
+            Question.marks=0;
+          }
+          else if (Question.correctOptionID != Question.chosedOptionId)
+          {
+            Chemistry.wrong++;
+            Chemistry.marks-=1;
+            Question.marks=-1;
+            result.innerHTML='Wrong'.fontcolor("red")
+          }
+        }
+        var table = document.getElementById("marksTable")
+        var row = table.insertRow(subRowIndex++);
+        rowIndex++;
+        row.insertCell(0).innerHTML="Chemistry";
+        row.insertCell(1).innerHTML=Chemistry.right;
+        row.insertCell(2).innerHTML=Chemistry.wrong;
+        row.insertCell(3).innerHTML=Chemistry.unattended;
+        row.insertCell(4).innerHTML=Chemistry.marks;
+//-------------Chemistry over------------------------------------------------------------------------------
+//Marks Table Creation : Mathematics
+console.log("MATHEMATICS")
+var table = document.getElementById("marksTable");
+
+var appID = table.insertRow(rowIndex++);
+appID.style.backgroundColor = "#ff1a75";
+appID.insertCell(0).innerHTML="Section"
+appID.insertCell(1).innerHTML="Mathematics";
+
+//Heading Row
+var tableHeader = table.insertRow(rowIndex++);
+tableHeader.style.backgroundColor = "#003cb3";
+tableHeader.insertCell(0).innerHTML="Question No";
+tableHeader.insertCell(1).innerHTML="Question ID";
+tableHeader.insertCell(2).innerHTML="Chosen Option";
+tableHeader.insertCell(3).innerHTML="Chosen Option ID";
+tableHeader.insertCell(4).innerHTML="Correct Option No";
+tableHeader.insertCell(5).innerHTML="Correct Option ID";
+tableHeader.insertCell(6).innerHTML="Answered";
+var sectionID=responses.indexOf("Mathematics");
+var Qid =sectionID;
+var Oid =sectionID;
+var statusID=sectionID;
+var answerID=sectionID;
+for(var i=0;i<30;i++)
+{
+  var Question = {
+    ID : 0,
+    Options:[0],
+    chosedOption:0,
+    chosenOptionID:0,
+    correctOptionID:0,
+    correctOption:0,
+    marks:5,
+  };
+  Qid=responses.indexOf("Question ID",Qid)+'Question ID :	'.length;
+  Question.ID=responses.substr(Qid,responses.indexOf("\n",Qid)-Qid);
+  Question.correctOptionID=answers[answers.indexOf(Question.ID)+1];
+  Oid=responses.indexOf("Option",Oid)+'Option 1 ID :	'.length;
+  for(j=0;j<4;j++)
+  {
+    Oid=responses.indexOf("Option",Oid)+'Option 1 ID :	'.length;
+    Question.Options.push(responses.substr(Oid,responses.indexOf("\n",Oid)-Oid))
+  }
+  Oid=responses.indexOf("Option",Oid)+'Option 1 ID :	'.length;
+  Question.correctOption=Question.Options.indexOf(Question.correctOptionID)
+  //Console.log(Options);
+  statusID=responses.indexOf("Status :	",statusID)+'Status :	'.length;
+  answerID=responses.indexOf("Chosen Option :	",answerID)+'Chosen Option :	'.length;
+  Question.chosedOption=responses.substr(answerID,responses.indexOf("\n",answerID)-answerID)
+  if (Question.chosedOption == '--')
+  {
+      Question.chosedOption=null;
+      Question.chosedOptionId=null;
+  }
+  else {
+    Question.chosedOptionId=Question.Options[Question.chosedOption]
+  }
+
+  var table = document.getElementById("marksTable")
+  var row = table.insertRow(rowIndex++);
+  //Question No
+  row.insertCell(0).innerHTML=i+1+'.';
+  //Question ID
+  row.insertCell(1).innerHTML=Question.ID;
+  //Chosen Option
+  row.insertCell(2).innerHTML=Question.chosedOption
+  //Chosen Option ID
+  row.insertCell(3).innerHTML=Question.chosedOptionId
+  //Correct Option No
+  row.insertCell(4).innerHTML=Question.correctOption
+  //Correct Option ID
+  row.insertCell(5).innerHTML=Question.correctOptionID
+  //Answered
+  var result = row.insertCell(6)
+  if (Question.correctOptionID==Question.chosedOptionId)
+  {
+    Mathematics.right++;
+    Mathematics.marks= Mathematics.marks+ 4;
+    Question.marks=4;
+    result.innerHTML='Correct'.fontcolor("green")
+  }
+  else if (Question.chosedOptionId==null)
+  {
+    Mathematics.unattended++;
+    Question.marks=0;
+    console.log(i+'Not T '+Question.ID+ "  " +Mathematics.marks )
+  }
+  else if (Question.correctOptionID != Question.chosedOptionId)
+  {
+    Mathematics.wrong++;
+    Mathematics.marks-=1;
+    Question.marks=-1;
+    result.innerHTML='Wrong'.fontcolor("red")
+  }
+}
+var table = document.getElementById("marksTable")
+var row = table.insertRow(subRowIndex++);
+rowIndex++;
+row.insertCell(0).innerHTML="Mathematics";
+row.insertCell(1).innerHTML=Mathematics.right;
+row.insertCell(2).innerHTML=Mathematics.wrong;
+row.insertCell(3).innerHTML=Mathematics.unattended;
+row.insertCell(4).innerHTML=Mathematics.marks;
+//-------------Mathematics over------------------------------------------------------------------------------
+Total.right=Physics.right+Chemistry.right+Mathematics.right;
+Total.wrong=Physics.wrong+Chemistry.wrong+Mathematics.wrong;
+Total.unattended=Physics.unattended+Chemistry.unattended+Mathematics.unattended;
+Total.marks=Physics.marks+Chemistry.marks+Mathematics.marks;
+var table = document.getElementById("marksTable")
+var row = table.insertRow(subRowIndex++);
+rowIndex++;
+row.insertCell(0).innerHTML="Total";
+row.insertCell(1).innerHTML=Total.right;
+row.insertCell(2).innerHTML=Total.wrong;
+row.insertCell(3).innerHTML=Total.unattended;
+row.insertCell(4).innerHTML=Total.marks;
+
+      }
+    </script>
+  </body>
+</html>
